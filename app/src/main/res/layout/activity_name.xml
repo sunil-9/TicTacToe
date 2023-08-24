@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".NameActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/player_background"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Players Name"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/primary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            />
+        <EditText
+            android:id="@+id/player1Name"
+            android:background="@drawable/player_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/accent"
+            android:drawableStart="@drawable/o_image"
+            android:padding="8dp"
+            android:layout_marginBottom="20dp"
+            android:drawablePadding="10dp"
+            android:hint="player 1 name"
+            />
+        <EditText
+            android:id="@+id/player2Name"
+            android:background="@drawable/player_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/accent"
+            android:layout_marginLeft="20dp"
+            android:drawableStart="@drawable/x_image"
+            android:padding="8dp"
+            android:drawablePadding="10dp"
+            android:hint="player 2 name"
+            />
+        <Button
+            android:id="@+id/startGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Start Game"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:backgroundTint="@color/primary"
+            android:layout_marginBottom="20dp"
+            />
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

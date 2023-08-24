@@ -44,7 +44,7 @@
             android:background="@drawable/player_background"
             >
             <TextView
-                android:id="@+id/player1"
+                android:id="@+id/tvPlayer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Player 1"
@@ -70,7 +70,7 @@
             android:background="@drawable/player_background"
             >
             <TextView
-                android:id="@+id/player2"
+                android:id="@+id/tvPlayer2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Player 2"
