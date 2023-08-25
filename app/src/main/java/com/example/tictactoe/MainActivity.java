@@ -14,6 +14,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tictactoe.helper.DatabaseCrud;
+import com.example.tictactoe.helper.SharedPref;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,12 +30,14 @@ import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 public class MainActivity extends AppCompatActivity {
     TextView person1, person2;
+
     int count = 0;
     boolean player1 = true;
     LinearLayout llp1, llp2;
     //winner array list
     List<int[]> winnerCombination = new ArrayList<>();
     ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9;
+    Button leaderboardBtn;
     //array of 9 integers with all values 0
     int[] boxPosition = {0, 0, 0, 0, 0, 0, 0, 0, 0};// each value represents the state of the image, 0 means image is empty, 1 means player 1 and 2 means player 2
 
@@ -88,6 +93,20 @@ public class MainActivity extends AppCompatActivity {
         winnerCombination.add(new int[]{2, 4, 6});
     }
 
+    public  void showLeaderboard(){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Leaderboard");
+        DatabaseCrud databaseCrud = new DatabaseCrud(this);
+        alertDialog.setMessage(databaseCrud.getPlayerWithScore());
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Clear",
+                (dialog, which) -> {
+                    databaseCrud.deleteAllPlayer();
+                    dialog.dismiss();
+                });
+        alertDialog.show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
         addWinnerCombination();
         person1 = findViewById(R.id.tvPlayer1);
         person2 = findViewById(R.id.tvPlayer2);
+        leaderboardBtn = findViewById(R.id.leaderboardBtn);
+        leaderboardBtn.setOnClickListener(v -> {
+                    showLeaderboard();
+        }
+        );
         //get from extras and set name to textview
         Intent intent = getIntent();
         String player1Name = intent.getStringExtra("player1Name");
@@ -153,13 +177,19 @@ public class MainActivity extends AppCompatActivity {
         if(id==0)
             message="Match Draw.";
         else if(id==1)
-            message="Hurray!you " + "player1" + " won the match";
+            message="Hurray!you " + SharedPref.getString(this,SharedPref.Player1) + " won the match";
         else
-            message="Hurray!you " + "player2" + " won the match";
+            message="Hurray!you " + SharedPref.getString(this,SharedPref.Player2)+ " won the match";
         message = message + "\nDo you want to restart the match?";
         builder.setCancelable(true);
         TextView textView = resultDialogView.findViewById(R.id.messageText);
         if (id != 0) {
+            DatabaseCrud databaseCrud = new DatabaseCrud(this);
+            if (id == 1) {
+                databaseCrud.updateScore(person1.getText().toString());
+            } else {
+                databaseCrud.updateScore(person2.getText().toString());
+            }
 
             KonfettiView konfettiView = resultDialogView.findViewById(R.id.konfettiView);
             EmitterConfig emitterConfig = new Emitter(2L, TimeUnit.SECONDS).perSecond(100);
